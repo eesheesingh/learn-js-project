@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200..700&family=Playwrite+DE+Grund:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/*   font-family: "Space Mono", monospace;*/
+  /*font-family: "Fira Sans Condensed", sans-serif;*/
+
+body {
+  background-color: #F9F8F2;
+}
+
+.secondary-font {
+  font-family: "Poppins", serif;
+}
+
+.heading-font {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  color: #342E37;
+}
+
+.main-font{
+  font-family: "Space Mono", serif;
+}
+
+.nav-link {
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 4px;
+  background-color: rgb(255, 170, 0);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  background-color: #342E37;
+  color: #fff;
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
