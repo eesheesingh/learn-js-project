@@ -9,9 +9,9 @@ import EasyProblem from "./components/EasyCode/EasyProblem";
 const App = () => {
   return (
     <Router>
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-        <Navbar />
+      <Navbar /> {/* Move Navbar outside of max-width container */}
 
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mt-[4rem]">
         <Routes>
           <Route path="*" element={<Navigate to="/" replace />} />
           <Route path="/" element={<Hero />} />
