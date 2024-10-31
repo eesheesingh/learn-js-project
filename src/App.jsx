@@ -1,10 +1,11 @@
 // App.js
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import GridJs from "./components/Home/GridJs";
 import Hero from "./components/Home/Hero";
 import Navbar from "./components/Navbar/Navbar";
 import CodeEditor from "./components/CodeEditor/CodeEditor";
 import EasyProblem from "./components/EasyCode/EasyProblem";
+import ProblemsPage from "./components/Problems/ProblemsPage";
+import Contact from "./components/Contact/Contact";
 
 const App = () => {
   return (
@@ -15,9 +16,10 @@ const App = () => {
         <Routes>
           <Route path="*" element={<Navigate to="/" replace />} />
           <Route path="/" element={<Hero />} />
-          <Route path="/code-problems" element={<GridJs />} />
+          <Route path="/code-problems" element={<ProblemsPage />} />
           <Route path="/code-problems/:id" element={<EasyProblem />} />
           <Route path="/your-code-editor" element={<CodeEditor />} />
+          <Route path="/contact-me" element={<Contact />} />
         </Routes>
       </div>
     </Router>

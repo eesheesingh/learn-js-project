@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { easyCodeData } from "../../data/data";
 import Editor from "@monaco-editor/react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FaPlay } from "react-icons/fa";
 import { SiAnswer } from "react-icons/si";
-import SolutionModal from '../Solution/SolutionModal';
+import SolutionModal from "../Solution/SolutionModal";
+import { motion } from "framer-motion";
 
 const EasyProblem = () => {
   const { id } = useParams();
@@ -16,20 +17,24 @@ const EasyProblem = () => {
   const [output, setOutput] = useState([]);
   const [isSolutionModalOpen, setIsSolutionModalOpen] = useState(false);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   const handleRunCode = () => {
     setOutput([]);
     const logCapture = [];
     const customConsole = {
       log: (...args) => {
-        const formattedArgs = args.map(arg =>
-          typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+        const formattedArgs = args.map((arg) =>
+          typeof arg === "object" ? JSON.stringify(arg, null, 2) : String(arg)
         );
         logCapture.push(formattedArgs.join(" "));
       },
     };
 
     try {
-      new Function('console', code)(customConsole);
+      new Function("console", code)(customConsole);
       setOutput(logCapture);
     } catch (error) {
       setOutput([`Error: ${error.message}`]);
@@ -43,7 +48,14 @@ const EasyProblem = () => {
   if (!problem) return <p className="text-center">Problem not found!</p>;
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.8,
+        ease: "easeInOut",
+      }}
+    >
       {isSolutionModalOpen && (
         <SolutionModal
           codeSnippetSolution={problem.codeSnippetSolution}
@@ -52,32 +64,42 @@ const EasyProblem = () => {
       )}
 
       <div className="p-6 mt-[7rem] bg-[#f7f7f7] border-[2px] border-[#00000026] rounded-2xl shadow-lg relative">
-        {/* Theory Badge */}
         {problem.theory && (
           <span className="absolute top-4 right-4 px-3 py-1 text-sm font-semibold text-blue-800 bg-blue-100 rounded-full">
             Theory
           </span>
         )}
 
-        <h1 className="text-3xl font-bold mb-4 text-center text-gray-800">{problem.title}</h1>
+        <h1 className="text-3xl font-bold mb-4 text-center text-gray-800 heading-font">
+          {problem.title}
+        </h1>
 
-        {/* Explanation Section */}
-        <div className="bg-white rounded-lg shadow p-4 mb-4">
-          <h2 className="text-xl font-semibold text-gray-700">{problem.description} Explanation</h2>
+        <div className="bg-white rounded-lg shadow p-4 mb-4 main-font">
+          <h2 className="text-xl font-semibold text-gray-700">
+            {problem.description} Explanation
+          </h2>
           <p className="text-gray-600">{problem.explanation}</p>
         </div>
       </div>
 
-      {/* Problem and Code Editor Section */}
       <div className="p-6 mt-6 bg-[#f7f7f7] border-[2px] border-[#00000026] rounded-2xl shadow-lg mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Code Out &#60;<span className="text-green-500">/</span>&#62;	</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center text-gray-800 heading-font">
+          Code Out &#60;<span className="text-green-500">/</span>&#62;
+        </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          {/* Main Problem Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 secondary-font">
           <div className="bg-white rounded-lg shadow-md p-6 border-2 border-gray-200 overflow-y-auto">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">Problem Description</h2>
-              <span className={`px-3 py-1 text-sm font-semibold rounded-full ${problem.level === 'Easy' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
+              <h2 className="text-xl font-semibold mb-4 text-gray-700">
+                Problem Description
+              </h2>
+              <span
+                className={`px-3 py-1 text-sm font-semibold rounded-full ${
+                  problem.level === "Easy"
+                    ? "bg-green-100 text-green-800"
+                    : "bg-yellow-100 text-yellow-800"
+                }`}
+              >
                 {problem.level}
               </span>
             </div>
@@ -86,19 +108,21 @@ const EasyProblem = () => {
             <pre className="text-gray-600 bg-gray-100 p-4 rounded-lg whitespace-pre-wrap mb-4">
               {problem.example}
             </pre>
-            <SyntaxHighlighter language="javascript" style={solarizedlight} customStyle={{
-              borderRadius: "8px",
-              padding: "1rem",
-              backgroundColor: "#f9fafb",
-              border: "1px solid #e2e8f0",
-            }}>
+            <SyntaxHighlighter
+              language="javascript"
+              style={solarizedlight}
+              customStyle={{
+                borderRadius: "8px",
+                padding: "1rem",
+                backgroundColor: "#f9fafb",
+                border: "1px solid #e2e8f0",
+              }}
+            >
               {problem.codeSnippetExample}
             </SyntaxHighlighter>
           </div>
 
-          {/* Right Containers */}
           <div className="grid grid-rows-2 gap-6">
-            {/* Code Editor */}
             <div className="bg-white rounded-lg shadow-md p-6 border-2 border-gray-200">
               <div className="flex justify-between items-center pb-3">
                 <h2 className="text-xl font-semibold text-gray-700">Code Editor</h2>
@@ -129,7 +153,6 @@ const EasyProblem = () => {
               />
             </div>
 
-            {/* Console Output */}
             <div className="bg-white rounded-lg shadow-md p-6 border-2 border-gray-200 overflow-y-auto">
               <h2 className="text-xl font-semibold mb-4 text-gray-700">Console Output</h2>
               <div className="bg-gray-100 p-3 rounded-lg text-sm text-gray-800 font-mono">
@@ -137,7 +160,9 @@ const EasyProblem = () => {
                   <pre className="text-gray-400">Output will appear here...</pre>
                 ) : (
                   output.map((line, index) => (
-                    <pre key={index} className="mb-1">{line}</pre>
+                    <pre key={index} className="mb-1">
+                      {line}
+                    </pre>
                   ))
                 )}
               </div>
@@ -145,7 +170,7 @@ const EasyProblem = () => {
           </div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 };
 

@@ -1,14 +1,14 @@
-// Navbar.js
 import { useState, useEffect } from 'react';
-import { FaTimes, FaJsSquare } from 'react-icons/fa';
+import { FaTimes, FaJsSquare, FaGithub } from 'react-icons/fa';
 import { HiMiniBars3BottomRight } from "react-icons/hi2";
 import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("Home"); // Define activeLink state
+  const [activeLink, setActiveLink] = useState("Home");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHovered, setIsHovered] = useState(false); 
   const location = useLocation();
 
   const toggleMenu = () => {
@@ -24,16 +24,17 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Update active link based on current route
   useEffect(() => {
     const currentPath = location.pathname;
 
     if (currentPath === "/") {
       setActiveLink("Home");
     } else if (currentPath.startsWith("/code-problems")) {
-      setActiveLink("About");
+      setActiveLink("Explore");
     } else if (currentPath === "/your-code-editor") {
-      setActiveLink("Services");
+      setActiveLink("PlayGround");
+    } else if (currentPath === "/contact-me") {
+      setActiveLink("Contact");
     } else {
       setActiveLink("");
     }
@@ -41,7 +42,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 w-full z-20 mt-4">
-      <div className={`max-w-screen-xl md:mx-auto lg:mx-auto mx-3 flex items-center justify-between p-4 transition-all duration-500 ease-in-out rounded-lg ${
+      <div className={`max-w-screen-xl mx-auto p-4 flex items-center justify-between transition-all duration-500 ease-in-out rounded-lg ${
         isScrolled ? "bg-white/10 backdrop-blur-md shadow-lg" : "bg-[#fff] shadow-lg"
       }`}>
         {/* Brand Name with Icon */}
@@ -52,10 +53,10 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center md:space-x-10 lg:space-x-20">
-          {["Home", "About", "Services", "Contact"].map((link) => (
+          {["Home", "Explore", "PlayGround", "Contact"].map((link) => (
             <Link
               key={link}
-              to={link === "Home" ? "/" : link === "About" ? "/code-problems" : link === "Services" ? "/your-code-editor" : "#"}
+              to={link === "Home" ? "/" : link === "Explore" ? "/code-problems" : link === "PlayGround" ? "/your-code-editor" : link === "Contact" ? "/contact-me" : "#"}
               onClick={() => setActiveLink(link)}
               className={`nav-link text-gray-900 transition duration-200 secondary-font ${
                 activeLink === link ? "active" : ""
@@ -66,10 +67,26 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Get Started Button */}
-        <button className="hidden md:block bg-blue-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
-          Get Started
-        </button>
+        {/* GitHub Button with Tooltip */}
+        <div className="relative hidden md:flex items-center">
+          <a
+            href="https://github.com/eesheesingh" // Replace with your GitHub profile link
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="flex items-center bg-gray-900 text-white font-medium py-2 px-4 rounded-lg hover:bg-gray-700"
+          >
+            <FaGithub className="mr-2" />
+            <span>GitHub</span>
+          </a>
+          {/* Tooltip */}
+          {isHovered && (
+            <span className="absolute top-full mt-1 px-3 py-1 bg-black text-white text-xs rounded-md shadow-lg">
+              My Projects !!!
+            </span>
+          )}
+        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -80,34 +97,44 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       {isOpen && (
-        <motion.div
-          initial="closed"
-          animate="open"
-          exit="closed"
-          variants={{
-            open: { opacity: 1, scale: 1 },
-            closed: { opacity: 0, scale: 0.8 }
-          }}
-          className="absolute top-14 right-4 w-48 bg-white shadow-lg rounded-lg py-4 px-4 z-10"
-        >
-          {["Home", "About", "Services", "Contact"].map((link) => (
-            <motion.a
-              key={link}
-              href="#"
-              onClick={() => setActiveLink(link)}
-              className={`block text-gray-900 py-2 text-lg secondary-font ${
-                activeLink === link ? "bg-blue-600 text-white rounded-md px-2" : ""
-              }`}
+        <div className="fixed inset-0 bg-black/70 z-20 flex items-center justify-center">
+          {/* Mobile Menu */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white w-3/4 max-w-xs rounded-lg p-6 space-y-6"
+          >
+            {["Home", "Explore", "PlayGround", "Contact"].map((link) => (
+              <Link
+                key={link}
+                to={link === "Home" ? "/" : link === "Explore" ? "/code-problems" : link === "PlayGround" ? "/your-code-editor" : link === "Contact" ? "/contact-me" : "#"}
+                onClick={() => {
+                  setActiveLink(link);
+                  setIsOpen(false);
+                }}
+                className={`block text-gray-900 py-2 text-lg font-medium text-center rounded-md transition-colors duration-200 ${
+                  activeLink === link ? "bg-blue-600 text-white" : "hover:bg-gray-200"
+                }`}
+              >
+                {link}
+              </Link>
+            ))}
+            {/* GitHub Link */}
+            <a
+              href="https://github.com/eesheesingh" // Replace with your GitHub profile link
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block bg-gray-900 text-white py-2 rounded-md text-center font-medium hover:bg-gray-700"
             >
-              {link}
-            </motion.a>
-          ))}
-          <button className="w-full mt-4 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-            Get Started
-          </button>
-        </motion.div>
+              <FaGithub className="inline-block mr-2" />
+              GitHub
+            </a>
+          </motion.div>
+        </div>
       )}
     </nav>
   );

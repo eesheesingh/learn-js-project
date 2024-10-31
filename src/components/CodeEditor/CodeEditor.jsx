@@ -2,11 +2,12 @@
 import { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { FaPlay, FaTimes } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const CodeEditor = () => {
   const [code, setCode] = useState("// Type your JavaScript code here");
   const [output, setOutput] = useState([]);
-  
+
   useEffect(() => {
     const originalLog = console.log;
     console.log = (message) => {
@@ -34,9 +35,19 @@ const CodeEditor = () => {
   };
 
   return (
-    <div className="p-3 mx-auto bg-white rounded-lg shadow-md border-4 border-gray-300">
-      <h1 className="text-2xl font-bold mb-4 text-center text-gray-800 retro-title">JavaScript Code Editor</h1>
-      
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.8,
+        ease: "easeOut",
+      }}
+      className="p-3 mx-auto bg-white rounded-lg shadow-md border-4 border-gray-300 mt-[8rem]"
+    >
+      <h1 className="md:text-[2.5rem] text-2xl font-bold mb-4 text-center text-gray-800 retro-title heading-font">
+        Go Nuts🥜 With Your Coding ❣️
+      </h1>
+
       {/* Toolbar with Run and Clear Buttons */}
       <div className="flex justify-between items-center mb-4 px-2">
         <div className="flex space-x-2">
@@ -84,7 +95,7 @@ const CodeEditor = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
