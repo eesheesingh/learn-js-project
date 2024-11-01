@@ -6,6 +6,12 @@
 
 body {
   background-color: #F9F8F2;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark body {
+  background-color: #1a202c; /* Dark background color */
+  color: #f7fafc; /* Light text color */
 }
 
 .secondary-font {
@@ -48,6 +54,11 @@ body {
   color: #fff;
   border-radius: 4px;
   padding: 0.25rem 0.75rem;
+}
+
+/* Dark mode styles */
+.dark .nav-link.active {
+  @apply bg-[#F9F8F2] text-black;
 }
 
 .nav-link.active::after {

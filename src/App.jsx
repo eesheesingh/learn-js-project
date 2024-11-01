@@ -6,12 +6,13 @@ import CodeEditor from "./components/CodeEditor/CodeEditor";
 import EasyProblem from "./components/EasyCode/EasyProblem";
 import ProblemsPage from "./components/Problems/ProblemsPage";
 import Contact from "./components/Contact/Contact";
+import ThemeToggle from "./components/LightDarkMode/ThemeToggle";
+import AvatarIcon from "./components/MyAvatar/AvatarIcon"; // Import AvatarIcon
 
 const App = () => {
   return (
     <Router>
-      <Navbar /> {/* Move Navbar outside of max-width container */}
-
+      <Navbar /> {/* Navbar remains globally accessible */}
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mt-[4rem]">
         <Routes>
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -22,6 +23,10 @@ const App = () => {
           <Route path="/contact-me" element={<Contact />} />
         </Routes>
       </div>
+
+      {/* Theme toggle and avatar button */}
+      <ThemeToggle />
+      <AvatarIcon />
     </Router>
   );
 };

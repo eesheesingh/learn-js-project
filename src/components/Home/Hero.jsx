@@ -21,7 +21,7 @@ const Hero = () => {
     >
       <section className="py-8">
         <div className="max-w-5xl mx-auto text-center px-4 md:px-8">
-          <h1 className="text-4xl md:text-[6rem] font-extrabold mb-4 leading-tight heading-font">
+          <h1 className="text-4xl md:text-[6rem] font-extrabold mb-4 leading-tight dark:text-[#fff] heading-font">
             Your Super Smart <br />
             <motion.span
               initial={{ rotate: 4 }} // Start rotation from 3 degrees
@@ -34,7 +34,7 @@ const Hero = () => {
                 stiffness: 200,
                 damping: 10,
               }}
-              className="bg-[#342E37] text-white md:text-[5rem] text-[2rem] px-10 py-1 rounded-full inline-block border-[2px] border-dashed border-[#FFD700]"
+              className="bg-[#342E37] dark:bg-[#F9F8F2] text-white dark:text-[#000] md:text-[5rem] text-[2rem] px-10 py-1 rounded-full inline-block border-[2px] border-dashed dark:border-[#000] border-[#FFD700]"
             >
               KNOWLEDGE
             </motion.span>

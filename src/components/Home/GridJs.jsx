@@ -21,35 +21,36 @@ function GridJs() {
 
   return (
     <>
-      <div className="bg-white p-3 rounded-full shadow-md mt-10">
+      <div className="bg-white dark:bg-[#000] dark:backdrop-blur-lg	 p-3 rounded-full shadow-md mt-10">
         {/* Tabs */}
         <div className="flex md:space-x-4 overflow-x-auto space-x-2">
           {difficultyTabs.map((tab) => (
             <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`relative w-full md:w-full px-4 py-3 text-sm font-semibold transition-colors duration-300 rounded-full ${
-                activeTab === tab.id
-                  ? "text-white bg-[#1A202C]"
-                  : "text-gray-700 hover:bg-[#E2E8F0]"
-              }`}
-              style={{
-                WebkitTapHighlightColor: "transparent",
-                fontFamily: '"Poppins", sans-serif',
-              }}
-            >
-              {activeTab === tab.id && (
-                <motion.span
-                  layoutId="bubble"
-                  className="absolute inset-0 bg-[#342E37] mix-blend-difference rounded-full"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-              <span className="relative z-10">
-                <span className="hidden md:inline">{tab.label}</span>
-                <span className="md:hidden">{tab.shortLabel}</span>
-              </span>
-            </button>
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`relative w-full md:w-full px-4 py-3 text-sm font-semibold transition-colors duration-300 rounded-full ${
+              activeTab === tab.id
+                ? "text-white bg-[#1A202C] dark:bg-white/20 dark:backdrop-blur-md" // Glassy white bg in dark mode
+                : "text-gray-700 dark:text-gray-300 hover:bg-[#E2E8F0] dark:hover:bg-gray-700/30"
+            }`}
+            style={{
+              WebkitTapHighlightColor: "transparent",
+              fontFamily: '"Poppins", sans-serif',
+            }}
+          >
+            {activeTab === tab.id && (
+              <motion.span
+                layoutId="bubble"
+                className="absolute inset-0 bg-[#342E37] dark:bg-white/10 mix-blend-difference rounded-full backdrop-blur-lg" // Adjust background in dark mode
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
+            <span className="relative z-10">
+              <span className="hidden md:inline">{tab.label}</span>
+              <span className="md:hidden">{tab.shortLabel}</span>
+            </span>
+          </button>
+          
           ))}
         </div>
       </div>
