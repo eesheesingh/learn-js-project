@@ -63,49 +63,49 @@ const EasyProblem = () => {
         />
       )}
 
-      <div className="p-6 mt-[7rem] bg-[#f7f7f7] border-[2px] border-[#00000026] rounded-2xl shadow-lg relative">
+      <div className="p-6 mt-[7rem] bg-[#f7f7f7] dark:bg-[#161b24] border-[2px] border-[#00000026] dark:border-[#ffffff26] rounded-2xl shadow-lg relative">
         {problem.theory && (
-          <span className="absolute top-4 right-4 px-3 py-1 text-sm font-semibold text-blue-800 bg-blue-100 rounded-full">
+          <span className="absolute top-4 right-4 px-3 py-1 text-sm font-semibold text-blue-800 dark:text-blue-200 bg-blue-100 dark:bg-blue-800 rounded-full">
             Theory
           </span>
         )}
 
-        <h1 className="text-3xl font-bold mb-4 text-center text-gray-800 heading-font">
+        <h1 className="text-3xl font-bold mb-4 text-center text-gray-800 dark:text-gray-100 heading-font">
           {problem.title}
         </h1>
 
-        <div className="bg-white rounded-lg shadow p-4 mb-4 main-font">
-          <h2 className="text-xl font-semibold text-gray-700">
+        <div className="bg-white dark:bg-[#1e293b] rounded-lg shadow p-4 mb-4 main-font">
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300">
             {problem.description} Explanation
           </h2>
-          <p className="text-gray-600">{problem.explanation}</p>
+          <p className="text-gray-600 dark:text-gray-400">{problem.explanation}</p>
         </div>
       </div>
 
-      <div className="p-6 mt-6 bg-[#f7f7f7] border-[2px] border-[#00000026] rounded-2xl shadow-lg mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-center text-gray-800 heading-font">
+      <div className="p-6 mt-6 bg-[#f7f7f7] dark:bg-[#161b24] border-[2px] border-[#00000026] dark:border-[#ffffff26] rounded-2xl shadow-lg mx-auto">
+        <h1 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-gray-100 heading-font">
           Code Out &#60;<span className="text-green-500">/</span>&#62;
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 secondary-font">
-          <div className="bg-white rounded-lg shadow-md p-6 border-2 border-gray-200 overflow-y-auto">
+          <div className="bg-white dark:bg-[#1e293b] rounded-lg shadow-md p-6 border-2 border-gray-200 dark:border-[#ffffff26] overflow-y-auto">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">
+              <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">
                 Problem Description
               </h2>
               <span
                 className={`px-3 py-1 text-sm font-semibold rounded-full ${
                   problem.level === "Easy"
-                    ? "bg-green-100 text-green-800"
-                    : "bg-yellow-100 text-yellow-800"
+                    ? "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100"
+                    : "bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100"
                 }`}
               >
                 {problem.level}
               </span>
             </div>
-            <p className="text-gray-600 mb-4">{problem.question}</p>
-            <h3 className="text-md font-semibold text-gray-700">Example</h3>
-            <pre className="text-gray-600 bg-gray-100 p-4 rounded-lg whitespace-pre-wrap mb-4">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">{problem.question}</p>
+            <h3 className="text-md font-semibold text-gray-700 dark:text-gray-300">Example</h3>
+            <pre className="text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg whitespace-pre-wrap mb-4">
               {problem.example}
             </pre>
             <SyntaxHighlighter
@@ -123,9 +123,9 @@ const EasyProblem = () => {
           </div>
 
           <div className="grid grid-rows-2 gap-6">
-            <div className="bg-white rounded-lg shadow-md p-6 border-2 border-gray-200">
+            <div className="bg-white dark:bg-[#1e293b] rounded-lg shadow-md p-6 border-2 border-gray-200 dark:border-[#ffffff26]">
               <div className="flex justify-between items-center pb-3">
-                <h2 className="text-xl font-semibold text-gray-700">Code Editor</h2>
+                <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300">Code Editor</h2>
                 <div className="flex space-x-4">
                   <button
                     onClick={handleRunCode}
@@ -153,11 +153,11 @@ const EasyProblem = () => {
               />
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6 border-2 border-gray-200 overflow-y-auto">
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">Console Output</h2>
-              <div className="bg-gray-100 p-3 rounded-lg text-sm text-gray-800 font-mono">
+            <div className="bg-white dark:bg-[#1e293b] rounded-lg shadow-md p-6 border-2 border-gray-200 dark:border-[#ffffff26] overflow-y-auto">
+              <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">Console Output</h2>
+              <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg text-sm text-gray-800 dark:text-gray-300 font-mono">
                 {output.length === 0 ? (
-                  <pre className="text-gray-400">Output will appear here...</pre>
+                  <pre className="text-gray-400 dark:text-gray-500">Output will appear here...</pre>
                 ) : (
                   output.map((line, index) => (
                     <pre key={index} className="mb-1">
