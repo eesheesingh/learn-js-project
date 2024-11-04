@@ -1,5 +1,4 @@
 // EasyCodeGrid.js
-import React from 'react';
 import { easyCodeData } from "../../data/data";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
